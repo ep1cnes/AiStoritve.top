@@ -1,61 +1,86 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-<meta charset="UTF-8">
-<title>AI Storitev</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Storitev</title>
 
-<script>
-function copyText(id, btn) {
-    const text = document.getElementById(id).innerText;
-    navigator.clipboard.writeText(text);
+    <link rel="stylesheet" href="style-v2.css">
 
-    btn.classList.add("copied");
-    btn.innerText = "COPIED";
-}
+    <script>
+        function copyText(id, btn) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
 
-function resetBtn(btn) {
-    btn.classList.remove("copied");
-    btn.innerText = "COPY";
-}
-</script>
+            btn.classList.add("copied");
+            btn.innerText = "COPIED";
+        }
 
-<link rel="stylesheet" href="style.css">
+        function resetBtn(btn) {
+            btn.classList.remove("copied");
+            btn.innerText = "COPY";
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const titles = document.querySelectorAll(".prompt-title");
+            const cards = document.querySelectorAll(".prompt-card");
+
+            titles.forEach(title => {
+                title.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    const card = this.closest(".prompt-card");
+
+                    cards.forEach(c => {
+                        if (c !== card) {
+                            c.classList.remove("expanded");
+                        }
+                    });
+
+                    card.classList.toggle("expanded");
+                });
+            });
+
+            document.addEventListener("click", function (e) {
+                cards.forEach(card => {
+                    if (!card.contains(e.target)) {
+                        card.classList.remove("expanded");
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
 
-<header class="ai-header">
-    <a href="index.html" class="ai-title-btn">
-        AI STORITVE
-    </a>
-</header>
+    <header class="ai-header">
+        <a href="index.html" class="ai-title-btn">AI STORITVE</a>
+    </header>
 
-<div class="nav-bar">
-    <div class="nav-item" onclick="window.location.href='prompti.html'">PROMPTI</div>
-    <div class="nav-item" onclick="window.location.href='orodja.html'">ORODJA</div>
-    <div class="nav-item" onclick="window.location.href='tutorials.html'">TUTORIALS</div>
-</div>
-
-<div class="container">
-
-    <div class="prompt-card">
-        <div class="prompt-content">
-            <div class="prompt-title">Lego Prompt</div>
-            <div class="prompt-text" id="prompt1">
-                Create a high-quality LEGO minifigure character based on the person in the reference image. Use the subject’s hairstyle, skin tone, facial expression, and outfit as inspiration. Translate their key features — such as eyes, eyebrows, mouth, and accessories — into the iconic LEGO minifigure aesthetic.
-            </div>
-        </div>
-        <button class="copy-btn"
-            onmouseenter="resetBtn(this)"
-            onclick="copyText('prompt1', this)">
-            COPY
-        </button>
+    <div class="nav-bar">
+        <div class="nav-item" onclick="window.location.href='prompti.html'">PROMPTI</div>
+        <div class="nav-item" onclick="window.location.href='orodja.html'">ORODJA</div>
+        <div class="nav-item" onclick="window.location.href='tutorials.html'">TUTORIALS</div>
     </div>
 
-    <div class="prompt-card">
-        <div class="prompt-content">
-            <div class="prompt-title">GTA V Effect</div>
-            <div class="prompt-text" id="prompt2">
-                Rebuild the entire scene from the reference image as a real-time 3D render inside the GTA V RAGE engine. Do not apply a filter. Fully reconstruct all people, vehicles, architecture, terrain, and props as polygonal 3D assets native to GTA V. The result should look like an authentic in-game screenshot captured on a high-end PC, ultra settings enabled.
+    <div class="container">
+
+        <div class="prompt-card">
+            <div class="prompt-content">
+                <div class="prompt-title">Lego Prompt</div>
+                <div class="prompt-text" id="prompt1">
+Create a high-quality LEGO minifigure character based on the person in the reference image. Use the subject’s hairstyle, skin tone, facial expression, and outfit as inspiration. Translate their key features — such as eyes, eyebrows, mouth, and accessories — into the iconic LEGO minifigure aesthetic.
+                </div>
+            </div>
+            <button class="copy-btn" onmouseenter="resetBtn(this)" onclick="copyText('prompt1', this)">
+                COPY
+            </button>
+        </div>
+
+        <div class="prompt-card">
+            <div class="prompt-content">
+                <div class="prompt-title">GTA V Effect</div>
+                <div class="prompt-text" id="prompt2">
+Rebuild the entire scene from the reference image as a real-time 3D render inside the GTA V RAGE engine. Do not apply a filter. Fully reconstruct all people, vehicles, architecture, terrain, and props as polygonal 3D assets native to GTA V. The result should look like an authentic in-game screenshot captured on a high-end PC, ultra settings enabled.
 
 All subjects must be converted into clearly modeled geometry with visible polygon structure, baked normal maps, and game-ready textures. Faces, bodies, and clothing should follow GTA V character proportions and anatomy, slightly exaggerated, rigid, and digitally sculpted. Skin is matte and textured, no photographic pores. Hair is clumped, card-based, slightly stiff. Clothing uses flat fabric shaders with visible seams and texture repetition.
 
@@ -68,74 +93,56 @@ Materials must read as video game assets. Asphalt is flat and grainy. Metal has 
 Camera should feel like a gameplay or Rockstar Editor capture. Third-person or free camera perspective. Slight wide-angle distortion. Stable framing. No depth-of-field blur. No motion blur unless minimal and engine-based.
 
 Overall look is unmistakably GTA V. Real-time 3D. Polygonal. Textured. Optimized. Stylized realism. Clearly not a photograph.
+                </div>
             </div>
+            <button class="copy-btn" onmouseenter="resetBtn(this)" onclick="copyText('prompt2', this)">
+                COPY
+            </button>
         </div>
-        <button class="copy-btn"
-            onmouseenter="resetBtn(this)"
-            onclick="copyText('prompt2', this)">
-            COPY
-        </button>
-    </div>
 
-    <div class="prompt-card">
-        <div class="prompt-content">
-            <div class="prompt-title">Quality upscale Nano Banana</div>
-            <div class="prompt-text" id="prompt3">
-                Ultra-high-resolution 4K enhancement based strictly on the provided reference image. Absolute fidelity to original facial anatomy, proportions, and identity. Preserve expression, gaze, pose, camera angle, framing, and perspective with zero deviation. Clothing, hair, skin, and background elements must remain unchanged in structure, placement, and design.
+        <div class="prompt-card">
+            <div class="prompt-content">
+                <div class="prompt-title">Quality upscale Nano Banana</div>
+                <div class="prompt-text" id="prompt3">
+Ultra-high-resolution 4K enhancement based strictly on the provided reference image. Absolute fidelity to original facial anatomy, proportions, and identity. Preserve expression, gaze, pose, camera angle, framing, and perspective with zero deviation. Clothing, hair, skin, and background elements must remain unchanged in structure, placement, and design.
 
 Recover fine-grain detail with natural realism. Enhance pores, fine lines, hair strands, eyelashes, fabric weave, seams, and material edges without introducing stylization. Maintain original color science, white balance, and tonal relationships exactly as captured. Lighting direction, intensity, contrast, and shadow behavior must match the source image precisely, with only improved clarity and expanded dynamic range. No relighting, no reshaping. Remove any grain.
 
 Apply controlled sharpening and high-frequency detail reconstruction. Remove compression artifacts and noise while retaining authentic texture. No smoothing, no plastic skin, no artificial gloss. Facial features must remain consistent across the entire image with coherent anatomy and clean, stable edges.
 
 Negative constraints: no warping, no facial drift, no added or missing anatomy, no altered hands, no distortions, no perspective shift, no text or graphics, no hallucinated detail, no stylized rendering. Output must read as a true-to-life, photorealistic upscale that matches the reference exactly, only clearer, sharper, and higher resolution.
+                </div>
+            </div>
+            <button class="copy-btn" onmouseenter="resetBtn(this)" onclick="copyText('prompt3', this)">
+                COPY
+            </button>
+        </div>
+
+        <div class="prompt-card">
+            <div class="prompt-content">
+                <div class="prompt-title">MINECRAFT Prompt</div>
+                <div class="prompt-text" id="prompt4">
+{ "task": "image_transformation", "style": { "overall_aesthetic": "High-quality cinematic Minecraft screenshot.", "rendering_technique": "Mixed-media: Photorealistic subject embedded in a voxel-based environment." }, "subject_rules": { "main_subject": "The human person from the reference image must remain completely photorealistic and unchanged. No pixelation or block filters on their body, clothing, or face.", "interacting_objects": "CRITICAL: Any non-human object in direct physical contact with the subject e.g. or nearby pets dogs MUST be converted into Minecraft block models or mobs. A real dog becomes a Minecraft wolf." }, "environment_rules": { "background_analysis": "Analyze the reference image background structure and recreate it entirely out of Minecraft voxel blocks.", "elements": "Trees, terrain, paths, and foliage must be cubic blocks with pixel art textures.", "atmosphere": "Replicate the foggy forest atmosphere using blocky volumetric fog layers appropriate for Minecraft." }, "composition_and_lighting": { "camera": "Maintain the exact camera angle and framing from the reference photo.", "lighting": "Minecraft daylight with gentle haze and consistent block-based shadows." } } enhance
+                </div>
+            </div>
+            <button class="copy-btn" onmouseenter="resetBtn(this)" onclick="copyText('prompt4', this)">
+                COPY
+            </button>
+        </div>
+
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <h3>Kontakt</h3>
+            <p>Email: </p>
+            <div class="socials">
+                <a href="#">Facebook</a> |
+                <a href="#">Instagram</a> |
+                <a href="#">TikTok</a>
             </div>
         </div>
-        <button class="copy-btn"
-            onmouseenter="resetBtn(this)"
-            onclick="copyText('prompt3', this)">
-            COPY
-        </button>
-    </div>
-
-    <div class="prompt-card">
-        <div class="prompt-content">
-            <div class="prompt-title">MINECRAFT Prompt</div>
-            <div class="prompt-text" id="prompt4">
-                { "task": "image_transformation", "style": { "overall_aesthetic": "High-quality cinematic Minecraft screenshot.",
-"rendering_technique": "Mixed-media: Photorealistic subject embedded in a voxel-based environment." },
-"subject_rules": { "main_subject": "The human person from the reference image must remain completely
-photorealistic and unchanged. No pixelation or block filters on their body, clothing, or face.",
-"interacting_objects": "CRITICAL: Any non-human object in direct physical contact with the subject e.g. or
-nearby pets dogs MUST be converted into Minecraft block models or mobs. A real dog becomes a Minecraft
-wolf." }, "environment_rules": { "background_analysis": "Analyze the reference image background structure
-and recreate it entirely out of Minecraft voxel blocks.", "elements": "Trees, terrain, paths, and foliage must be
-cubic blocks with pixel art textures.", "atmosphere": "Replicate the foggy forest atmosphere using blocky
-volumetric fog layers appropriate for Minecraft." }, "composition_and_lighting": { "camera": "Maintain the
-exact camera angle and framing from the reference photo.", "lighting": "Minecraft daylight with gentle haze
-and consistent block-based shadows." } } enhance
-            </div>
-        </div>
-        <button class="copy-btn"
-            onmouseenter="resetBtn(this)"
-            onclick="copyText('prompt4', this)">
-            COPY
-        </button>
-    </div>
-
-</div>
-
-<footer class="site-footer">
-    <div class="footer-content">
-        <h3>Kontakt</h3>
-        <p>Email: </p>
-
-        <div class="socials">
-            <a href="#">Facebook</a> |
-            <a href="#">Instagram</a> |
-            <a href="#">TikTok</a>
-        </div>
-    </div>
-</footer>
+    </footer>
 
 </body>
 </html>
